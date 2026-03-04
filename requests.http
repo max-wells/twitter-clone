@@ -1,0 +1,91 @@
+
+################################################
+#####            🐦 TWITTER CLONE          #####
+#####         http://localhost:3000         #####
+################################################
+
+# current_user = Alice (hardcoded in AppState, no auth)
+# users: alice · bob · charlie · diana · evan
+
+################################################
+#####           1️⃣  TWEETS                 #####
+################################################
+
+
+### Get all tweets (global timeline)
+GET http://localhost:3000/api/get_tweets
+
+###
+
+### Get tweets by username
+GET http://localhost:3000/api/get_tweets_by_username?username=alice
+
+###
+
+### Get following tweets (tweets from users alice follows)
+GET http://localhost:3000/api/get_following_tweets
+
+###
+
+### Post a new tweet (as alice)
+POST http://localhost:3000/api/post_tweet
+Content-Type: application/x-www-form-urlencoded
+
+content=Hello+from+requests.http+%F0%9F%A6%80
+
+###
+
+### Delete a tweet (alice's tweet)
+GET http://localhost:3000/api/delete_tweet?unid=00000000-0000-0000-0002-000000000001
+
+###
+
+
+
+################################################
+#####           2️⃣  USERS                  #####
+################################################
+
+
+### Get all users
+GET http://localhost:3000/api/get_users
+
+###
+
+### Get user by username
+GET http://localhost:3000/api/get_user_by_username?username=bob
+
+###
+
+### Get users to follow (others + follow state, from alice's POV)
+GET http://localhost:3000/api/get_users_to_follow
+
+###
+
+### Get full user profile by username
+GET http://localhost:3000/api/get_user_profile_by_username?username=charlie
+
+###
+
+
+
+################################################
+#####           3️⃣  FOLLOWS                #####
+################################################
+
+
+### Toggle follow on bob (alice follows/unfollows bob)
+POST http://localhost:3000/api/toggle_follow
+Content-Type: application/x-www-form-urlencoded
+
+following_id=00000000-0000-0000-0001-000000000002
+
+###
+
+### Toggle follow on charlie
+POST http://localhost:3000/api/toggle_follow
+Content-Type: application/x-www-form-urlencoded
+
+following_id=00000000-0000-0000-0001-000000000003
+
+###

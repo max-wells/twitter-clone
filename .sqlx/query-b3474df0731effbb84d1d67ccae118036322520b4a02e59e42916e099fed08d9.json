@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                    WITH deleted AS (\n                        DELETE FROM follows\n                        WHERE follower_id = $1\n                            AND following_id = $2\n                        RETURNING 1\n                    ),\n                    inserted AS (\n                        INSERT INTO follows (follower_id, following_id)\n                        SELECT $1, $2\n                        WHERE NOT EXISTS (SELECT 1 FROM deleted)\n                        RETURNING 1\n                    )\n                    SELECT EXISTS (SELECT 1 FROM inserted) AS \"is_following!\"\n                ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "is_following!",
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "b3474df0731effbb84d1d67ccae118036322520b4a02e59e42916e099fed08d9"
+}

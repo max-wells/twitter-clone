@@ -1,0 +1,64 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                    SELECT\n                        t.unid,\n                        t.author_id,\n                        t.content,\n                        t.created_at,\n                        u.username AS author_username,\n                        u.display_name AS author_display_name,\n                        u.avatar_url AS author_avatar_url,\n                        (t.author_id = $1) AS \"is_mine!: bool\"\n                    FROM tweets t\n                    JOIN users u ON u.unid = t.author_id\n                    JOIN follows f ON f.following_id = t.author_id AND f.follower_id = $1\n                    ORDER BY t.created_at DESC\n                ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "unid",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "author_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "content",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 4,
+        "name": "author_username",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "author_display_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "author_avatar_url",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 7,
+        "name": "is_mine!: bool",
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      null
+    ]
+  },
+  "hash": "6d2ff6e758bb6ce64fc0423295a419bfbbb33858c9273f23b84cb8957500146c"
+}

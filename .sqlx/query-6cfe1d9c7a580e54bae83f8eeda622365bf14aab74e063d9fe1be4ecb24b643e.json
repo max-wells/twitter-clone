@@ -1,0 +1,71 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n                    SELECT\n                        u.unid,\n                        u.username,\n                        u.display_name,\n                        u.bio,\n                        u.created_at,\n                        u.avatar_url,\n                        u.banner_url,\n                        EXISTS(\n                            SELECT 1 FROM follows\n                            WHERE follower_id = $2 AND following_id = u.unid\n                        ) AS \"is_following!: bool\",\n                        (u.unid = $2) AS \"is_current_user!: bool\"\n                    FROM users u\n                    WHERE u.username = $1\n                ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "unid",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "username",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "display_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "bio",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 5,
+        "name": "avatar_url",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 6,
+        "name": "banner_url",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 7,
+        "name": "is_following!: bool",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 8,
+        "name": "is_current_user!: bool",
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      null,
+      null
+    ]
+  },
+  "hash": "6cfe1d9c7a580e54bae83f8eeda622365bf14aab74e063d9fe1be4ecb24b643e"
+}
